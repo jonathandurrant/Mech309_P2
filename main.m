@@ -16,7 +16,7 @@ load('MECH309_MP2_data.mat');
 
 whos
 
-return % comment this out
+% return % comment this out
 
 %% Solve for velocity given two positions at two times
 [rg1,vg1] = find_v_given_position_data(r_g_at_t1,r_g_at_t2,t1,t2);
