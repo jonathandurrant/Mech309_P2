@@ -1,3 +1,5 @@
+% GREG
+
 function [R_g,V_g] = orbit_propagation(a,e,Omega,inc,omega_orbit,t0,t)
 % Plot the orbit
 
@@ -12,7 +14,7 @@ p = rp*(1 + e); % m, semilatus rectum
 h = sqrt(p*mu1);
 
 %% Find the DCM from the perifocal frame to the inertial frame
-Cpg = eye(3); % Made up, needs to be changed. 
+Cpg = C3(omega_orbit)*C1(inc)*C3(Omega);
 Cgp = Cpg'; % all angels in radians (rad)
 
 % Compute th, r, R, and V

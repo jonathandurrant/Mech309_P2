@@ -1,3 +1,5 @@
+% GREG
+
 close all
 font_size = 15;
 line_size = 15;
@@ -5,10 +7,12 @@ line_width = 2;
 
 Re = cst.Re;
 
+%% Figure 1 - Orbit
 figure
 plot3(SC_r_g_initial_hat(:,1),SC_r_g_initial_hat(:,2),SC_r_g_initial_hat(:,3),'rx','Linewidth',line_width);
 hold on
 plot3(SC_r_g_hat(:,1),SC_r_g_hat(:,2),SC_r_g_hat(:,3),'mx','Linewidth',line_width);
+
 hold on
 grid on
 [F_g1, F_g2, F_g3] = sphere(36);
@@ -23,8 +27,9 @@ xlabel('$g^1$ (m)','fontsize',font_size,'Interpreter','latex');
 ylabel('$g^2$ (m)','fontsize',font_size,'Interpreter','latex');
 zlabel('$g^3$ (m)','fontsize',font_size,'Interpreter','latex');
 view([1 1 1])
-print('plots/orbit','-depsc','-r720');
+%print('plots/orbit','-depsc','-r720');
 
+%% Figure 2 - Plots
 figure
 plot(t/T,bias_hat,'b-','Linewidth',line_width);
 hold on
@@ -34,3 +39,5 @@ ylabel('$\hat{b}$ (m)','fontsize',font_size,'Interpreter','latex');
 set(gca,'XMinorGrid','off','GridLineStyle','-','FontSize',line_size)
 grid on
 exportfig(gcf,'plots/bias_hat.eps','width',11,'Height',8.5,'fontmode','fixed','fontsize',18,'Color','cmyk','LineWidth',line_width);
+
+
