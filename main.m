@@ -16,7 +16,7 @@ load('MECH309_MP2_data.mat');
 
 whos
 
-return % comment this out
+%return % comment this out
 
 %% Solve for velocity given two positions at two times
 [rg1,vg1] = find_v_given_position_data(r_g_at_t1,r_g_at_t2,t1,t2);
@@ -50,7 +50,7 @@ while (lv0 <= 100)&&(lv1 <= length(t)) % length(t)
     SC_r_g_initial_hat(lv1,:) = R_orbit; % Initial estimate of the receiver position
     SC_r_g_hat(lv1,:) = R_orbit*1.5; % Estimate of the receiver position
     bias_hat(lv1) = 10;
-    b_error(lv1) = 1;
+    b_error(lv1) = bias_hat(lv1)/299792458; % Receiver bias divided by speed of light
     
     % Update counters
     lv1 = lv1 + 1; 
