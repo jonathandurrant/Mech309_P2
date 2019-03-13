@@ -16,7 +16,8 @@ load('MECH309_MP2_data.mat');
 
 whos
 
-% return % comment this out
+%return % comment this out
+>>>>>>> refs/remotes/origin/Branch_1
 
 %% Solve for velocity given two positions at two times
 [rg1,vg1] = find_v_given_position_data(r_g_at_t1,r_g_at_t2,t1,t2);
@@ -42,6 +43,17 @@ while (lv0 <= 100)&&(lv1 <= length(t)) % length(t)
     % Initial guess from orbit propagation
     [R_orbit,V_orbit] = orbit_propagation(a,e,Omega,inc,omega_orbit,t0,t(lv1));
     
+    
+    %for j = 1:6
+        %orb_a(j) = measurements(j,3,lv1)
+        %e  = 
+        %disp(orb_a)
+        %[R_orbit_Sati,V_orbit_Sati] = orbit_propagation(a,e,Omega,inc,omega_orbit,t0,t(lv1));
+    %end
+    
+    
+    % Iterayr to find orbit data for each row in each measurement matrix
+    
     % Extract measurment data
     meas_data = measurements(:,:,lv1);
     meas_data_size = size(meas_data);
@@ -49,9 +61,9 @@ while (lv0 <= 100)&&(lv1 <= length(t)) % length(t)
     
     % Made up, need to change
     SC_r_g_initial_hat(lv1,:) = R_orbit; % Initial estimate of the receiver position
-    SC_r_g_hat(lv1,:) = R_orbit*1.5; % Estimate of the receiver position
+    SC_r_g_hat(lv1,:) = R_orbit*1.1; % Estimate of the receiver position
     bias_hat(lv1) = 10;
-    b_error(lv1) = 1;
+    b_error(lv1) = bias_hat(lv1)/299792458; % Receiver bias divided by speed of light
     
     
     
