@@ -61,7 +61,7 @@ while (lv0 <= 100)&&(lv1 <= length(t)) % length(t)
     bias_hat(lv1) = 10;
     b_error(lv1) = bias_hat(lv1)/299792458; % Receiver bias divided by speed of light
     
-    s
+   
     
     % Update counters
     lv1 = lv1 + 1; 
