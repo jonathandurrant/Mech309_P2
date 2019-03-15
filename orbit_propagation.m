@@ -17,8 +17,9 @@ h = sqrt(p*mu1);
 Cpg = C3(omega_orbit)*C1(inc)*C3(Omega);
 Cgp = Cpg'; % all angles in radians (rad)
 
+% NB - added _hunter
 % Compute th, r, R, and V
-[th,r,R_g,V_g] = solve_two_body_prob(t,a,e,p,t0,Cgp);
+[th,r,R_g,V_g] = solve_two_body_prob_hunter(t,a,e,p,t0,Cgp);
     
 
 
