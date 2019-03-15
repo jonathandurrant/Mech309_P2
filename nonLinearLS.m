@@ -39,27 +39,27 @@ end
 x_r = rg_init(1);
 y_r = rg_init(2);
 z_r = rg_init(3);
-% b_t = b_i(1);
+b_r = tol +1;
 
 delta_x = 1; 
 iter = 1; 
-b_r = tol +1;
 
-while iter < 5000 && b_r > tol
+
+while iter < 100 && norm(delta_x) > tol
     for i = 1:6
 
         % calculate distance between ith satelite and reciever 
         d_i = sqrt( (x_r - X(i))^2 + (y_r - Y(i))^2 + (z_r - Z(i))^2);
-    
+     
         % Jacobian Matrix - Populate one row at a time
         A_i(i, 1) = (x_r - X(i))/d_i;
         A_i(i, 2) = (y_r - Y(i))/d_i;
         A_i(i, 3) = (z_r - Z(i))/d_i;
-       %  A_i(i, 4) = -1;
+        A_i(i, 4) = 1;
 
         % calculate b( variable: B) (for non linear least squares: f(x) = b)
         B(i,1) = rho(i) + b_i(i) - sigma(i);
-        RHS(i,1) = B(i,1) - d_i; % - b_t;
+        RHS(i,1) = B(i,1) - d_i - b_r;
 
     end 
     
@@ -70,16 +70,13 @@ while iter < 5000 && b_r > tol
     x_r = x_r + delta_x(1);
     y_r = y_r + delta_x(2);
     z_r = z_r + delta_x(3);
-   %  b_t = b_t + delta_x(4);
+    b_r = b_r + delta_x(4);
     iter = iter+1;
-    b_r =  norm(RHS)/length(RHS); 
+    
     
     
 end
 
-if matrix_num > 43 & matrix_num < 50
-        RHS
-    end 
 t = t(matrix_num);
 r_g = [x_r, y_r, z_r]; 
   

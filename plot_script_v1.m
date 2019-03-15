@@ -22,22 +22,22 @@ load coast.mat
 [x_coast, y_coast, z_coast] = sph2cart(long*(pi/180), lat*(pi/180), Re);
 plot3(x_coast, y_coast, z_coast, 'k')
 axis('equal')
-% title('Spacecraft Orbit')
+title('Spacecraft Orbit')
 xlabel('$g^1$ (m)','fontsize',font_size,'Interpreter','latex');
 ylabel('$g^2$ (m)','fontsize',font_size,'Interpreter','latex');
 zlabel('$g^3$ (m)','fontsize',font_size,'Interpreter','latex');
 view([1 1 1])
-%print('plots/orbit','-depsc','-r720');
+fprintf('plots/orbit','-depsc','-r720');
 
 %% Figure 2 - Plots
 figure
 plot(t/T,bias_hat,'b-','Linewidth',line_width);
 hold on
-% title('Absolute Error vs. $h$','fontsize',font_size,'Interpreter','latex');
+title('Absolute Error vs. $h$','fontsize',font_size,'Interpreter','latex');
 xlabel('Time (s)','fontsize',font_size,'Interpreter','latex');
 ylabel('$\hat{b}$ (m)','fontsize',font_size,'Interpreter','latex');
 set(gca,'XMinorGrid','off','GridLineStyle','-','FontSize',line_size)
 grid on
-exportfig(gcf,'plots/bias_hat.eps','width',11,'Height',8.5,'fontmode','fixed','fontsize',18,'Color','cmyk','LineWidth',line_width);
+%exportfig(gcf,'plots/bias_hat.eps','width',11,'Height',8.5,'fontmode','fixed','fontsize',18,'Color','cmyk','LineWidth',line_width);
 
 

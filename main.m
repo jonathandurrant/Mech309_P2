@@ -50,7 +50,7 @@ while (lv0 <= 100)&&(lv1 <= length(t)) % length(t)
     
     % Made up, need to change
     SC_r_g_initial_hat(lv1,:) = R_orbit; % Initial estimate of the receiver position
-    [SC_r_g_hat(lv1,:), b_r, iter(lv1)] =  nonLinearLS(lv1,25,R_orbit); % Estimate of the receiver position
+    [SC_r_g_hat(lv1,:), b_r, iter(lv1)] =  nonLinearLS(lv1,0.0001,R_orbit); % Estimate of the receiver position
     bias_hat(lv1) = b_r;
     b_error(lv1) = bias_hat(lv1)/299792458; % Receiver bias divided by speed of light
     
@@ -81,8 +81,10 @@ T = 2*pi*sqrt(a^3/cst.mu1);
 
 for i = 1:length(SC_r_g_hat)
     d(i) = norm(SC_r_g_hat(i,:));
+    Err_R(i) = bias_hat(i) ./ d(i);
 end 
-    scatter(d,bias_hat)
+   
+  
 
 
 %% plot script 
