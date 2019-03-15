@@ -1,4 +1,4 @@
-function [r_g] = nonLinearLS(matrix_num,tol)
+function [r_g, b_r, iter] = nonLinearLS(matrix_num,tol, rg_init)
 %NONLINEARLS Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -8,7 +8,7 @@ orbital_constants
 %% Load Data
 load('MECH309_MP2_data.mat');
 
-whos
+
 %% Build Matrices
 for i = 1:6
     
@@ -36,16 +36,16 @@ end
 %% Build jacobian and b matrix 
 
 % first guess at spacecraft reciever variables 
-x_r = r_g_at_t1(1);
-y_r = r_g_at_t1(2);
-z_r = r_g_at_t1(3);
-% b_t = 0.1;
+x_r = rg_init(1);
+y_r = rg_init(2);
+z_r = rg_init(3);
+% b_t = b_i(1);
 
 delta_x = 1; 
 iter = 1; 
-tol = 0.1;
+b_r = tol +1;
 
-while iter < 50 && norm(delta_x) > tol
+while iter < 5000 && b_r > tol
     for i = 1:6
 
         % calculate distance between ith satelite and reciever 
@@ -55,7 +55,7 @@ while iter < 50 && norm(delta_x) > tol
         A_i(i, 1) = (x_r - X(i))/d_i;
         A_i(i, 2) = (y_r - Y(i))/d_i;
         A_i(i, 3) = (z_r - Z(i))/d_i;
-        % A_i(i, 4) = 1;
+       %  A_i(i, 4) = -1;
 
         % calculate b( variable: B) (for non linear least squares: f(x) = b)
         B(i,1) = rho(i) + b_i(i) - sigma(i);
@@ -70,12 +70,18 @@ while iter < 50 && norm(delta_x) > tol
     x_r = x_r + delta_x(1);
     y_r = y_r + delta_x(2);
     z_r = z_r + delta_x(3);
-    % b_t = b_t + delta_x(4);
+   %  b_t = b_t + delta_x(4);
     iter = iter+1;
+    b_r =  norm(RHS)/length(RHS); 
+    
     
 end
+
+if matrix_num > 43 & matrix_num < 50
+        RHS
+    end 
 t = t(matrix_num);
-r_g = [A_i(i, 1); A_i(i, 2); A_i(i, 3)]; 
+r_g = [x_r, y_r, z_r]; 
   
 
 end 

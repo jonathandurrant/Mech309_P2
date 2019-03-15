@@ -48,17 +48,10 @@ while (lv0 <= 100)&&(lv1 <= length(t)) % length(t)
      meas_data_size = size(meas_data);
      N_meas = meas_data_size(1,1);
     
-    % R_g at time 1
-    % r_g_t1_corrected = nonLinearLS(8,0.001);
-    % R_g at time 1
-    % r_g_t2_corrected = nonLinearLS(9,0.001);
-  
-   
-    
     % Made up, need to change
     SC_r_g_initial_hat(lv1,:) = R_orbit; % Initial estimate of the receiver position
-    SC_r_g_hat(lv1,:) =  nonLinearLS(lv1,0.01); % Estimate of the receiver position
-    bias_hat(lv1) = 10;
+    [SC_r_g_hat(lv1,:), b_r, iter(lv1)] =  nonLinearLS(lv1,25,R_orbit); % Estimate of the receiver position
+    bias_hat(lv1) = b_r;
     b_error(lv1) = bias_hat(lv1)/299792458; % Receiver bias divided by speed of light
     
    
@@ -68,5 +61,30 @@ while (lv0 <= 100)&&(lv1 <= length(t)) % length(t)
     lv0 = lv0 + 1;
 end
 
+%% Solve for new velocity and orbital elements 
+[rg1,vg1] = find_v_given_position_data(SC_r_g_hat(8,:),SC_r_g_hat(9,:),t(8),t(9));
+ 
+
+%% Solve for new orbital elements
+
+[a,e,Omega,inc,omega_orbit,Delta_t0] = orbital_elements(rg1,vg1);
+
+% To find t0, need to subtract the time the first radar meas was taken from
+% t(8)
+% Delta_t0
+t0 = Delta_t0 - t(8);
+
+% new Period
+T = 2*pi*sqrt(a^3/cst.mu1);
+
+%% plot bias vs distance from earth 
+
+for i = 1:length(SC_r_g_hat)
+    d(i) = norm(SC_r_g_hat(i,:));
+end 
+    scatter(d,bias_hat)
+
+
+%% plot script 
 plot_script_v1;
 
