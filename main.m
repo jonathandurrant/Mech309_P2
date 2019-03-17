@@ -31,7 +31,7 @@ whos
 t0 = Delta_t0 - t1;
 
 % Period
-T = 2*pi*sqrt(a^3/cst.mu1);
+T = 2*pi*sqrt(a^3/cst.mu1)
 
 %% Solve for position given GPS measurments
 lv0 = 1; % extra counter.
@@ -75,7 +75,7 @@ end
 t0 = Delta_t0 - t(8);
 
 % new Period
-T = 2*pi*sqrt(a^3/cst.mu1);
+T = 2*pi*sqrt(a^3/cst.mu1)
 
 %% plot bias vs distance from earth 
 
