@@ -18,13 +18,13 @@ whos
 
 
 %% Solve for velocity given two positions at two times
-[rg1,vg1] = find_v_given_position_data(r_g_at_t1,r_g_at_t2,t1,t2);
+[rg1,vg1] = find_v_given_position_data(r_g_at_t1,r_g_at_t2,t1,t2)
  
 
 %% Solve for orbital elements
 % Note, this function ``orbital_elements" is NOT the same as in MP1; this
 % one outputs Delta_t, and not t0.
-[a,e,Omega,inc,omega_orbit,Delta_t0] = orbital_elements(rg1,vg1);
+[a,e,Omega,inc,omega_orbit,Delta_t0] = orbital_elements(rg1,vg1)
 
 % To find t0, need to subtract the time the first radar meas was taken from
 % Delta_t0
@@ -62,12 +62,12 @@ while (lv0 <= 100)&&(lv1 <= length(t)) % length(t)
 end
 
 %% Solve for new velocity and orbital elements 
-[rg1,vg1] = find_v_given_position_data(SC_r_g_hat(8,:),SC_r_g_hat(9,:),t(8),t(9));
+[rg1,vg1] = find_v_given_position_data(SC_r_g_hat(8,:),SC_r_g_hat(9,:),t(8),t(9))
  
 
 %% Solve for new orbital elements
 
-[a,e,Omega,inc,omega_orbit,Delta_t0] = orbital_elements(rg1,vg1);
+[a,e,Omega,inc,omega_orbit,Delta_t0] = orbital_elements(rg1,vg1)
 
 % To find t0, need to subtract the time the first radar meas was taken from
 % t(8)
@@ -81,10 +81,12 @@ T = 2*pi*sqrt(a^3/cst.mu1);
 
 for i = 1:length(SC_r_g_hat)
     d(i) = norm(SC_r_g_hat(i,:));
-    Err_R(i) = bias_hat(i) ./ d(i);
+    Err_R(i) = bias_hat(i) ./ d(i) * 100;
 end 
    
-  
+  scatter(t/T,Err_R)
+  xlabel('t/T');
+  ylabel('Relative bias error (%)');
 
 
 %% plot script 

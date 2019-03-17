@@ -26,6 +26,7 @@ title('Spacecraft Orbit')
 xlabel('$g^1$ (m)','fontsize',font_size,'Interpreter','latex');
 ylabel('$g^2$ (m)','fontsize',font_size,'Interpreter','latex');
 zlabel('$g^3$ (m)','fontsize',font_size,'Interpreter','latex');
+legend('Radar', 'GPS');
 view([1 1 1])
 fprintf('plots/orbit','-depsc','-r720');
 
