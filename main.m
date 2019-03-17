@@ -62,7 +62,7 @@ while (lv0 <= 100)&&(lv1 <= length(t)) % length(t)
 end
 
 %% Solve for new velocity and orbital elements 
-[rg1,vg1] = find_v_given_position_data(SC_r_g_hat(8,:),SC_r_g_hat(9,:),t(8),t(9))
+[rg1,vg1] = find_v_given_position_data(transpose(SC_r_g_hat(8,:)),transpose(SC_r_g_hat(9,:)),t(8),t(9))
  
 
 %% Solve for new orbital elements
